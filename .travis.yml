@@ -1,4 +1,10 @@
-language: python
+language:
+    python
 python:
-  - '2.7'
-script: python -m doctest -v pythonlab.py
+    - '2.7'
+script:
+    apt install flake8
+    pip install radon
+    python -m doctest -v pythonlab.py
+    flake8 pythonlab.py
+    radon cc pythonlab.py -a
