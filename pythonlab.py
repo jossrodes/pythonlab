@@ -3,11 +3,13 @@ from typing import List
 from typing import Tuple
 from math import sqrt
 from itertools import count, islice
+from contracts import contract
 import calendar
 """ Repaso interactivo de python
 """
 
 
+@contract(lower='int,>0', upper='int,>0', returns=None)
 def lower_up(lower: int, upper: int) -> None:
     for lower in range(lower, upper + 1):
         print(lower)
@@ -27,6 +29,7 @@ def lower_up(lower: int, upper: int) -> None:
 """
 
 
+@contract(args='tuple[N],N>0', kwargs='dict(str: (int))', returns=None)
 def all_the_args(*args: str, **kwargs: str) -> None:
     print(args)
     print(kwargs)
@@ -38,6 +41,7 @@ keyword args
 """
 
 
+@contract(tup='tuple[N],N>0', returns=None)
 def may_20(tup: Tuple[int]) -> None:
     cad_sup = ""
     for x in tup:
@@ -45,12 +49,13 @@ def may_20(tup: Tuple[int]) -> None:
     print(cad_sup)
 
 
+@contract(cadenaTMP='str', cadena='int,>0', returns='str')
 def compara_20(cadenaTMP: str, cadena: int) -> str:
     if cadena > 20:
         cadenaTMP = concatena_20(cadenaTMP, cadena)
     return cadenaTMP
 
-
+@contract(cadenaTMP='str', cadena='int,>0', returns='str')
 def concatena_20(cadenaTMP: str, cadena: int) -> str:
     if cadenaTMP == "":
         cadenaTMP = str(cadena)
@@ -64,6 +69,7 @@ superiores a 20.
 """
 
 
+@contract(list_='list(str)', n='int,>0', returns='list(str)')
 def word_filter(list_of_words: List[str], n: int) -> List[str]:
     a = 1
     for i in range(len(list_of_words)):
@@ -72,12 +78,14 @@ def word_filter(list_of_words: List[str], n: int) -> List[str]:
     return list_of_words
 
 
+@contract(li='list(str)', n='int,>0', a='int,>0', i='int', returns='list(str)')
 def word_list(list_of_words: List[str], n: int, a: int, i: int) -> List[str]:
     if len(list_of_words[i-a]) <= n:
         list_of_words.remove(list_of_words[i-a])
     return list_of_words
 
 
+@contract(list_='list(str)', n='int,>0', a='int,>0', i='int', returns='int')
 def word_accepted(list_of_words: List[str], n: int, a: int, i: int) -> int:
     if len(list_of_words[i-a]) <= n:
         a = a + 1
@@ -88,6 +96,7 @@ def word_accepted(list_of_words: List[str], n: int, a: int, i: int) -> int:
 """
 
 
+@contract(list='str', returns='int')
 def string_length(list: str) -> int:
     return len(list)
 """ 5: imprime el largo de una cadena de caracteres
@@ -96,6 +105,7 @@ def string_length(list: str) -> int:
 """
 
 
+@contract(x='str', returns='bool')
 def is_vocal(x: str) -> bool:
     if x == 'a' or x == 'e' or x == 'i' or x == 'o' or x == 'u':
         return True
@@ -109,6 +119,7 @@ False
 """
 
 
+@contract(year='int', returns=None)
 def is_leap_year(year: int) -> None:
     print(calendar.isleap(year))
 """ 7: Determines if a year is a leap year.
@@ -117,6 +128,7 @@ True
 """
 
 
+@contract(word='str', returns=None)
 def has_uppercase(word: str) -> None:
     print(sum(1 for x in word if x.isupper()))
 """ 8: Evaluate if a word has uppercase letters
@@ -125,6 +137,7 @@ def has_uppercase(word: str) -> None:
 """
 
 
+@contract(cadena='str', returns='int')
 def contar_vocales(cadena: str) -> int:
     count = 0
     for i in cadena.strip():
@@ -132,6 +145,7 @@ def contar_vocales(cadena: str) -> int:
     return count
 
 
+@contract(i='str', returns='int')
 def separa_vocal(i: str) -> int:
     if is_vocal(i):
         return 1
@@ -142,6 +156,7 @@ def separa_vocal(i: str) -> int:
 """
 
 
+@contract(list='list(int)', returns=None)
 def square(list: List[int]) -> None:
     ls = []
     for i in range(len(list)):
@@ -154,6 +169,7 @@ def square(list: List[int]) -> None:
 """
 
 
+@contract(n='int', returns='bool')
 def is_prime(n: int) -> bool:
     return n > 1 and all(n % i for i in islice(count(2), int(sqrt(n)-1)))
 """ 11:  Return if n is prime.
@@ -164,6 +180,7 @@ False
 """
 
 
+@contract(n='int', returns='int')
 def factorial(n: int) -> int:
     if n == 0:
         return 1
@@ -181,6 +198,7 @@ Else return a long.
 """
 
 
+@contract(n='int', returns='list(str)')
 def to_roman(n: int) -> List[str]:
     val = (1000, 900,  500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1)
     syb = ('M', 'CM', 'D', 'CD', 'C', 'XC', 'L', 'XL', 'X', 'IX', 'V',
@@ -199,6 +217,7 @@ def to_roman(n: int) -> List[str]:
 """
 
 
+@contract(word1='str', word2='str', returns=None)
 def rima(word1: str, word2: str) -> None:
     x = ""
     x = rima_comparation(word1, word2, 2)
@@ -207,12 +226,14 @@ def rima(word1: str, word2: str) -> None:
     print(x)
 
 
+@contract(word1='str', word2='str', n='int', returns='str')
 def rima_comparation(word1: str, word2: str, n: int) -> str:
     if word1[len(word1)-n:len(word1)] == word2[len(word2)-n:len(word2)]:
         return "rima un poco"
     return "no rima"
 
 
+@contract(word1='str', word2='str', n='int', returns='str')
 def rima_comparation2(word1: str, word2: str, n: int) -> str:
     if word1[len(word1)-n:len(word1)] == word2[len(word2)-n:len(word2)]:
         return "rima"
@@ -228,6 +249,7 @@ no rima
 """
 
 
+@contract(pesos='float', interes='float', anios='float', returns=None)
 def capital(pesos: float, interes: float, anios: float) -> None:
     total = pesos*(1 + interes/100)**anios
     print("%.2f" % total)
