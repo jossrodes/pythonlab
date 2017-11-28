@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+from typing import List
+from typing import Tuple
 from math import sqrt
 from itertools import count, islice
 import calendar
@@ -6,7 +8,7 @@ import calendar
 """
 
 
-def lower_up(lower, upper):
+def lower_up(lower: int, upper: int) -> None:
     for lower in range(lower, upper + 1):
         print(lower)
 """ 1: Returns a list of numbers from the lower number to the upper number:
@@ -25,7 +27,7 @@ def lower_up(lower, upper):
 """
 
 
-def all_the_args(*args, **kwargs):
+def all_the_args(*args: str, **kwargs: str) -> None:
     print(args)
     print(kwargs)
 """ 2: Return an array. Use * to expand positional args and use ** to expand
@@ -36,20 +38,20 @@ keyword args
 """
 
 
-def may_20(tup):
+def may_20(tup: Tuple[int]) -> None:
     cad_sup = ""
     for x in tup:
         cad_sup = compara_20(cad_sup, x)
     print(cad_sup)
 
 
-def compara_20(cadenaTMP, cadena):
+def compara_20(cadenaTMP: str, cadena: int) -> str:
     if cadena > 20:
         cadenaTMP = concatena_20(cadenaTMP, cadena)
     return cadenaTMP
 
 
-def concatena_20(cadenaTMP, cadena):
+def concatena_20(cadenaTMP: str, cadena: int) -> str:
     if cadenaTMP == "":
         cadenaTMP = str(cadena)
     else:
@@ -62,25 +64,31 @@ superiores a 20.
 """
 
 
-def word_filter(list_of_words, n):
-    x = 1
+def word_filter(list_of_words: List[str], n: int) -> List[str]:
+    a = 1
     for i in range(len(list_of_words)):
-        list_of_words, x = word_list(list_of_words, n, x, i)
+        list_of_words = word_list(list_of_words, n, a, i)
+        a = word_accepted(list_of_words, n, a, i)
     return list_of_words
 
 
-def word_list(list_of_words, n, a, i):
+def word_list(list_of_words: List[str], n: int, a: int, i: int) -> List[str]:
     if len(list_of_words[i-a]) <= n:
         list_of_words.remove(list_of_words[i-a])
+    return list_of_words
+
+
+def word_accepted(list_of_words: List[str], n: int, a: int, i: int) -> int:
+    if len(list_of_words[i-a]) <= n:
         a = a + 1
-    return list_of_words, a
+    return a
 """ 4: Filtra las palabras que contienen más de n caracteres.
 >>>word_filter([hello, bye, computer, software, python], 5)
 [computer, software, python]
 """
 
 
-def string_length(list):
+def string_length(list: str) -> int:
     return len(list)
 """ 5: imprime el largo de una cadena de caracteres
 >>>string_length("popularity")
@@ -88,7 +96,7 @@ def string_length(list):
 """
 
 
-def is_vocal(x):
+def is_vocal(x: str) -> bool:
     if x == 'a' or x == 'e' or x == 'i' or x == 'o' or x == 'u':
         return True
     else:
@@ -101,7 +109,7 @@ False
 """
 
 
-def is_leap_year(year):
+def is_leap_year(year: int) -> None:
     print(calendar.isleap(year))
 """ 7: Determines if a year is a leap year.
 >>>is_leap_year(2016)
@@ -109,7 +117,7 @@ True
 """
 
 
-def has_uppercase(word):
+def has_uppercase(word: str) -> None:
     print(sum(1 for x in word if x.isupper()))
 """ 8: Evaluate if a word has uppercase letters
 >>>has_uppercase(MayuSculA)
@@ -117,14 +125,14 @@ def has_uppercase(word):
 """
 
 
-def contar_vocales(cadena):
+def contar_vocales(cadena: str) -> int:
     count = 0
     for i in cadena.strip():
         count = separa_vocal(i) + count
     return count
 
 
-def separa_vocal(i):
+def separa_vocal(i: str) -> int:
     if is_vocal(i):
         return 1
     return 0
@@ -134,7 +142,7 @@ def separa_vocal(i):
 """
 
 
-def square(list):
+def square(list: List[int]) -> None:
     ls = []
     for i in range(len(list)):
         ls.append(list[i]*list[i])
@@ -146,7 +154,7 @@ def square(list):
 """
 
 
-def is_prime(n):
+def is_prime(n: int) -> bool:
     return n > 1 and all(n % i for i in islice(count(2), int(sqrt(n)-1)))
 """ 11:  Return if n is prime.
 >>>is_prime(5)
@@ -156,7 +164,7 @@ False
 """
 
 
-def factorial(n):
+def factorial(n: int) -> int:
     if n == 0:
         return 1
     else:
@@ -173,7 +181,7 @@ Else return a long.
 """
 
 
-def to_roman(n):
+def to_roman(n: int) -> List[str]:
     val = (1000, 900,  500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1)
     syb = ('M', 'CM', 'D', 'CD', 'C', 'XC', 'L', 'XL', 'X', 'IX', 'V',
            'IV', 'I')
@@ -191,7 +199,7 @@ def to_roman(n):
 """
 
 
-def rima(word1, word2):
+def rima(word1: str, word2: str) -> None:
     x = ""
     x = rima_comparation(word1, word2, 2)
     if x == "rima un poco":
@@ -199,13 +207,13 @@ def rima(word1, word2):
     print(x)
 
 
-def rima_comparation(word1, word2, n):
+def rima_comparation(word1: str, word2: str, n: int) -> str:
     if word1[len(word1)-n:len(word1)] == word2[len(word2)-n:len(word2)]:
         return "rima un poco"
     return "no rima"
 
 
-def rima_comparation2(word1, word2, n):
+def rima_comparation2(word1: str, word2: str, n: int) -> str:
     if word1[len(word1)-n:len(word1)] == word2[len(word2)-n:len(word2)]:
         return "rima"
     return "rima un poco"
@@ -220,7 +228,7 @@ no rima
 """
 
 
-def capital(pesos, interes, anios):
+def capital(pesos: float, interes: float, anios: float) -> None:
     total = pesos*(1 + interes/100)**anios
     print("%.2f" % total)
 """ 15: Pide una cantidad de pesos, una tasa de interés y un numero de años.
