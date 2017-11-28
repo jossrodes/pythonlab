@@ -2,12 +2,5 @@ language:
     python
 python:
     - '2.7'
-before_install:
-    - sudo apt update
-    - sudo apt upgrade
-    - sudo apt install flake8
-    - sudo pip install radon
 script:
     python -m doctest -v pythonlab.py
-    flake8 pythonlab.py
-    radon cc pythonlab.py -a
