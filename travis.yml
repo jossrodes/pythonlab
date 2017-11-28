@@ -1,4 +1,4 @@
 language: python
 python:
   - '2.7'
-script: python -m doctest -v pytholab.py
+script: python -m doctest -v pythonlab.py
